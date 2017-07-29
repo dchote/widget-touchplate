@@ -1,9 +1,11 @@
 requirejs.config({
     paths: {
-        // Three: '//i2dcui.appspot.com/geturl?url=http://threejs.org/build/three.js',
-        Three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r76/three',
-        //Three: 'http://threejs.org/build/three.min',
-        //Three: '//i2dcui.appspot.com/geturl?url=http://threejs.org/build/three.min.js',       //ray put this here for ssl
+        Three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three',
+    },
+    shim: {
+        Three: {
+            exports: 'THREE'
+        },
     }
 });
 
@@ -79,6 +81,14 @@ cprequire_test(["inline:com-chilipeppr-widget-touchplate"], function(touchplate)
         
 
 } /*end_test*/ );
+
+// Bring THREE in to global scope
+cpdefine('Three', ['https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.js'], function ( THREE ) {
+    if (typeof window !== 'undefined') {
+        window.THREE = THREE;
+        return THREE;
+    }
+});
 
 cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", 'Three'], function() {
     return {
